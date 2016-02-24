@@ -17,12 +17,14 @@
 <<setup,echo=FALSE,message=FALSE,cache=FALSE>>=
 require(knitr)
 require(extrafont)
-opts_chunk$set(echo = FALSE, comment = NA, width = 80,
+opts_chunk$set(echo = FALSE, comment = NA, width = 80, tidy = TRUE,
                fig.width = 6, fig.height = 3,
                out.width = '6in', out.height = '3in',
                dev = 'pdf', size = 'footnotesize', fig.align = 'center',
                dev.args = list(family = 'CM Roman', pointsize = 11))
 knit_theme$set('print')
+
+require(xtable)
 @
 
 \begin{enumerate}
@@ -36,9 +38,14 @@ the Missouri River and Continental Divide are, but otherwise I don't know much
 about the hydrology of Montana so my distances are more-or-less based on
 distance along the Missouri with an as-the-crow-flies component added on.
 
-<<prob6a>>=
-y<-rnorm(500)
-plot(y, y+rnorm(500)/2)
+<<prob6a, results = 'asis'>>=
+cities <- c('Belgrade', 'Billings', 'Bozeman', 'Butte', 'Dillon',
+  'Great Falls', 'Helena', 'Kalispell', 'Lewiston', 'Missoula')
+waterdists <- matrix(nrow = length(cities), ncol = length(cities))
+rownames(waterdists) <- cities
+#colnames(waterdists) <- cities
+
+xtable(waterdists)
 @
 
 \item %7
@@ -54,6 +61,23 @@ plot(y, y+rnorm(500)/2)
 \end{enumerate}
 
 \section*{R Code Appendix}
+
+\begin{enumerate}
+
+\setcounter{enumi}{5}
+\item %6
+
+\item %7
+
+\item %8
+
+\item %9
+
+\item %10
+
+\item %11
+
+\end{enumerate}
 
 \end{document}
 
