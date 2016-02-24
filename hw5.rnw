@@ -17,7 +17,7 @@
 <<setup,echo=FALSE,message=FALSE,cache=FALSE>>=
 require(knitr)
 require(extrafont)
-opts_chunk$set(echo = FALSE, comment = NA, width = 80, tidy = TRUE,
+opts_chunk$set(echo = FALSE, comment = NA, width = 80,
                fig.width = 6, fig.height = 3,
                out.width = '6in', out.height = '3in',
                dev = 'pdf', size = 'footnotesize', fig.align = 'center',
@@ -31,24 +31,80 @@ require(xtable)
 
 \setcounter{enumi}{5}
 \item %6
-My distance metric will be the number of miles between the cities when
-traveling by water. Short overland sections are allowed (a la Lewis and Clark
-carrying their boats across the Continental Divide). I know approximately where
-the Missouri River and Continental Divide are, but otherwise I don't know much
+My distance metric is the number of miles between the cities when traveling
+by water. Short overland sections are allowed (a la Lewis and Clark carrying
+their boats across the Continental Divide). I know approximately where the
+Missouri River and Continental Divide are, but otherwise I don't know much
 about the hydrology of Montana so my distances are more-or-less based on
 distance along the Missouri with an as-the-crow-flies component added on.
 
-<<prob6a, results = 'asis'>>=
-cities <- c('Belgrade', 'Billings', 'Bozeman', 'Butte', 'Dillon',
-  'Great Falls', 'Helena', 'Kalispell', 'Lewiston', 'Missoula')
-waterdists <- matrix(nrow = length(cities), ncol = length(cities))
-rownames(waterdists) <- cities
-#colnames(waterdists) <- cities
-
-xtable(waterdists)
-@
-
 \item %7
+Distances estimated by hastily eyeballing Google Earth appear in
+Tabel~\ref{dist}.
+
+<<prob6a, results = 'asis'>>=
+# Initialize a matrix
+waterdists <- read.csv('cityD.csv', header = TRUE, row.names = 1)
+
+# i don't like that "Great.Falls" has a dot when it's a column name!
+colnames(waterdists) <- rownames(waterdists)
+
+# Fill in the upper triangle because I mixed up the row and column indices
+waterdists['Belgrade', 'Billings'] <- 150
+waterdists['Belgrade', 'Bozeman'] <- 10
+waterdists['Belgrade', 'Butte'] <- 90
+waterdists['Belgrade', 'Dillon'] <- 100
+waterdists['Belgrade', 'Great Falls'] <- 160
+waterdists['Belgrade', 'Helena'] <- 80
+waterdists['Belgrade', 'Kalispell'] <- 290
+waterdists['Belgrade', 'Lewiston'] <- 160
+waterdists['Belgrade', 'Missoula'] <- 190
+waterdists['Billings', 'Bozeman'] <- 140
+waterdists['Billings', 'Butte'] <- 240
+waterdists['Billings', 'Dillon'] <- 250
+waterdists['Billings', 'Great Falls'] <- 310
+waterdists['Billings', 'Helena'] <- 230
+waterdists['Billings', 'Kalispell'] <- 440
+waterdists['Billings', 'Lewiston'] <- 110
+waterdists['Billings', 'Missoula'] <- 340
+waterdists['Bozeman', 'Butte'] <- 100
+waterdists['Bozeman', 'Dillon'] <- 110
+waterdists['Bozeman', 'Great Falls'] <- 170
+waterdists['Bozeman', 'Helena'] <- 90
+waterdists['Bozeman', 'Kalispell'] <- 300
+waterdists['Bozeman', 'Lewiston'] <- 150
+waterdists['Bozeman', 'Missoula'] <- 200
+waterdists['Butte', 'Dillon'] <- 60
+waterdists['Butte', 'Great Falls'] <- 170
+waterdists['Butte', 'Helena'] <- 90
+waterdists['Butte', 'Kalispell'] <- 200
+waterdists['Butte', 'Lewiston'] <- 250
+waterdists['Butte', 'Missoula'] <- 120
+waterdists['Dillon', 'Great Falls'] <- 200
+waterdists['Dillon', 'Helena'] <- 120
+waterdists['Dillon', 'Kalispell'] <- 260
+waterdists['Dillon', 'Lewiston'] <- 260
+waterdists['Dillon', 'Missoula'] <- 150
+waterdists['Great Falls', 'Helena'] <- 80
+waterdists['Great Falls', 'Kalispell'] <- 290
+waterdists['Great Falls', 'Lewiston'] <- 150
+waterdists['Great Falls', 'Missoula'] <- 180
+waterdists['Helena', 'Kalispell'] <- 210
+waterdists['Helena', 'Lewiston'] <- 230
+waterdists['Helena', 'Missoula'] <- 100
+waterdists['Kalispell', 'Lewiston'] <- 440
+waterdists['Kalispell', 'Missoula'] <- 120
+waterdists['Lewiston', 'Missoula'] <- 350
+
+# Create a dist object
+myD <- as.dist(t(waterdists))
+
+shortcities <- c('BG', 'BL', 'BZ', 'BT', 'DL', 'GF', 'HL', 'KS', 'LW', 'MS')
+print(xtable(as.matrix(myD), digits = 0, label = 'dist',
+             caption = 'Distances by water in miles.'),
+      table.placement = 'H', sanitize.colnames.function = function(x){
+        return(shortcities[which(labels(myD) == x)])})
+@
 
 \item %8
 
@@ -66,6 +122,8 @@ xtable(waterdists)
 
 \setcounter{enumi}{5}
 \item %6
+<<prob6a,echo=TRUE,eval=FALSE>>=
+@
 
 \item %7
 
