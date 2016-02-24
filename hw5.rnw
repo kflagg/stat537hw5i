@@ -39,8 +39,7 @@ about the hydrology of Montana so my distances are more-or-less based on
 distance along the Missouri with an as-the-crow-flies component added on.
 
 \item %7
-Distances estimated by hastily eyeballing Google Earth appear in
-Tabel~\ref{dist}.
+Distances estimated by eyeballing Google Earth appear in Tabel~\ref{dist}.
 
 <<prob7a, results = 'asis'>>=
 # Initialize a matrix
@@ -107,18 +106,38 @@ print(xtable(as.matrix(myD), digits = 0, label = 'dist',
 @
 
 \item %8
+Table~\ref{eig} shows the eigenvalues from the MDS. There are some negative
+values that are large in absolute value, implying that distance by water is
+a non-Euclidean metric.
 
-<<prob8a,fig.height=6,out.height='6in'>>=
+<<prob8a, results='asis'>>=
 myMDS <- cmdscale(myD, k = 2, eig = TRUE)
-plot(NULL, xlim = c(-250, 275), ylim = c(-150, 100),
+print(xtable(cbind('Eigenvalue' = myMDS$eig), label = 'eig',
+        caption = 'Eigenvalues of the distance matrix in decreasing order.'),
+      include.rownames = FALSE, table.placement = 'H')
+@
+
+\item %9
+<<prob9a,results='asis'>>=
+print(xtable(cbind('Eigenvalue' = myMDS$eig,
+                   'Cumulative Sum' = cumsum(abs(myMDS$eig))), label = 'abs',
+        caption = 'Eigenvalues cumulative sums of absolute eigenvalues.'),
+      include.rownames = FALSE, table.placement = 'H')
+@
+
+\item %10
+Figure~\ref{map}
+
+\begin{figure}
+<<prob10a,fig.height=6,out.height='6in'>>=
+plot(NULL, xlim = c(-250, 275), ylim = c(-150, 100), asp = 1,
      main = 'Multidimensional Scaling of Distance by Water',
      xlab = 'First MDS Axis', ylab = 'Second MDS Axis')
 text(myMDS$points[,1], myMDS$points[,2], labels = rownames(myMDS$points))
 @
-
-\item %9
-
-\item %10
+\caption{Map}
+\label{map}
+\end{figure}
 
 \item %11
 
@@ -138,8 +157,12 @@ text(myMDS$points[,1], myMDS$points[,2], labels = rownames(myMDS$points))
 @
 
 \item %9
+<<prob9a,echo=TRUE,eval=FALSE>>=
+@
 
 \item %10
+<<prob10a,echo=TRUE,eval=FALSE>>=
+@
 
 \item %11
 
