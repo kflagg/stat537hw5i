@@ -42,7 +42,7 @@ distance along the Missouri with an as-the-crow-flies component added on.
 Distances estimated by hastily eyeballing Google Earth appear in
 Tabel~\ref{dist}.
 
-<<prob6a, results = 'asis'>>=
+<<prob7a, results = 'asis'>>=
 # Initialize a matrix
 waterdists <- read.csv('cityD.csv', header = TRUE, row.names = 1)
 
@@ -108,6 +108,14 @@ print(xtable(as.matrix(myD), digits = 0, label = 'dist',
 
 \item %8
 
+<<prob8a,fig.height=6,out.height='6in'>>=
+myMDS <- cmdscale(myD, k = 2, eig = TRUE)
+plot(NULL, xlim = c(-250, 275), ylim = c(-150, 100),
+     main = 'Multidimensional Scaling of Distance by Water',
+     xlab = 'First MDS Axis', ylab = 'Second MDS Axis')
+text(myMDS$points[,1], myMDS$points[,2], labels = rownames(myMDS$points))
+@
+
 \item %9
 
 \item %10
@@ -120,14 +128,14 @@ print(xtable(as.matrix(myD), digits = 0, label = 'dist',
 
 \begin{enumerate}
 
-\setcounter{enumi}{5}
-\item %6
-<<prob6a,echo=TRUE,eval=FALSE>>=
+\setcounter{enumi}{6}
+\item %7
+<<prob7a,echo=TRUE,eval=FALSE>>=
 @
 
-\item %7
-
 \item %8
+<<prob8a,echo=TRUE,eval=FALSE>>=
+@
 
 \item %9
 
