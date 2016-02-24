@@ -1,5 +1,7 @@
+.Rproj.user
+.Rhistory
 cache/
 figure/
 *~
+*.Rproj
 *.pdf
-

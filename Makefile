@@ -1,7 +1,8 @@
 all: hw5.pdf
 
 clean:
-	rm *.aux *.log *.tex *~
+	rm *.aux *.log *.tex .Rhistory *~
+	rm -rf figure cache
 
 hw5.pdf: hw5.tex
 	pdflatex hw5.tex
