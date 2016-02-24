@@ -5,3 +5,6 @@ figure/
 *~
 *.Rproj
 *.pdf
+*.aux
+*.tex
+*.log
