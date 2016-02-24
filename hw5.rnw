@@ -1,0 +1,59 @@
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage{enumitem}
+\setlist{parsep=5pt}
+
+\usepackage{float}
+\usepackage{amsmath}
+
+\title{Stat 537 Assignment 5 (Individual Part)}
+\author{Kenny Flagg}
+\date{February 26, 2016}
+
+\begin{document}
+
+\maketitle
+
+<<setup,echo=FALSE,message=FALSE,cache=FALSE>>=
+require(knitr)
+require(extrafont)
+opts_chunk$set(echo = FALSE, comment = NA, width = 80,
+               fig.width = 6, fig.height = 3,
+               out.width = '6in', out.height = '3in',
+               dev = 'pdf', size = 'footnotesize', fig.align = 'center',
+               dev.args = list(family = 'CM Roman', pointsize = 11))
+knit_theme$set('print')
+@
+
+\begin{enumerate}
+
+\setcounter{enumi}{5}
+\item %6
+My distance metric will be the number of miles between the cities when
+traveling by water. Short overland sections are allowed (a la Lewis and Clark
+carrying their boats across the Continental Divide). I know approximately where
+the Missouri River and Continental Divide are, but otherwise I don't know much
+about the hydrology of Montana so my distances are more-or-less based on
+distance along the Missouri with an as-the-crow-flies component added on.
+
+<<prob6a>>=
+y<-rnorm(500)
+plot(y, y+rnorm(500)/2)
+@
+
+\item %7
+
+\item %8
+
+\item %9
+
+\item %10
+
+\item %11
+
+\end{enumerate}
+
+\section*{R Code Appendix}
+
+\end{document}
+
